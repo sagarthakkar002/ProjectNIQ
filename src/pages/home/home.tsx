@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import CustomSelect from "../../shared/components/ui/CustomSelect";
 import { Box, Grid } from "@mui/material";
-import { useFetch } from "../../hooks/useFetch";
 import { useProduct } from "../../context/ProductContext";
 
 const url = "https://fakestoreapi.com";
@@ -67,7 +65,7 @@ const Home = () => {
           <CustomSelect
             handleChange={handleProductChange}
             value={productID}
-            isDisabled={formattedDataproduct.length===0}
+            isDisabled={formattedDataproduct.length === 0}
             options={formattedDataproduct}
             labelName="Products"
           />

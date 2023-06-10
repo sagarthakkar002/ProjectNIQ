@@ -11,5 +11,5 @@ export const ProductTableColumns: TableColumn[] = [
 
 export const ProductTableRows: Product[] = [
     {id: 1, title: 'test', price: '50rs', category: 'any', description: 'any'},
-    {id: 1, title: 'test', price: '50rs', category: 'any', description: 'any'}
+    {id: 2, title: 'test', price: '50rs', category: 'any', description: 'any'}
 ];

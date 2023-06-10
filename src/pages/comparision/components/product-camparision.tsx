@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import * as HighCharts from 'highcharts';
 import {merge} from 'lodash';
 import { BAR_CHART_OPTIONS } from '../../../shared/defaults-data/charts/bar-chart-options';
 import { Chart } from '../../../shared/components/charts/chart';
+import CustomSelect from '../../../shared/components/ui/CustomSelect';
 
 const defaultOptions: HighCharts.Options = {
     title: {
@@ -74,7 +76,18 @@ const defaultOptions: HighCharts.Options = {
 
 export const ProductComparision = () => {
     const chartOptions = merge({}, BAR_CHART_OPTIONS, defaultOptions);
+    const comparisionOptions = [
+        { id: 'price', name: 'Price' },
+        { id: 'rating', name: 'Rating' }
+    ];
+
+    const [selectComparisionOption, setSelectComparisionOption] = useState('price');
+
+    useEffect(() => {
+    }, [selectComparisionOption]);
+
     return <>
         <Chart options={chartOptions} />
+        <CustomSelect labelName='Camparision options' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} />
     </>
 }

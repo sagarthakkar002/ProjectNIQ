@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={4} spacing={3}>
+      <Grid item xs={4}>
         <Box sx={{ marginBottom: "16px" }}>
           <CustomSelect
             handleChange={handleChange}

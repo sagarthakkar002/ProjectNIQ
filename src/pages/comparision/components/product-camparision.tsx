@@ -4,6 +4,7 @@ import {merge} from 'lodash';
 import { BAR_CHART_OPTIONS } from '../../../shared/defaults-data/charts/bar-chart-options';
 import { Chart } from '../../../shared/components/charts/chart';
 import CustomSelect from '../../../shared/components/ui/CustomSelect';
+import { Box, Grid } from "@mui/material";
 
 const defaultOptions: HighCharts.Options = {
     title: {
@@ -88,6 +89,13 @@ export const ProductComparision = () => {
 
     return <>
         <Chart options={chartOptions} />
-        <CustomSelect labelName='Camparision options' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} />
+        <Grid container spacing={2}>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>
+                <Box sx={{ marginBottom: "25px" }}>
+                    <CustomSelect labelName='Camparision' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} />
+                </Box>
+            </Grid>
+        </Grid>
     </>
 }

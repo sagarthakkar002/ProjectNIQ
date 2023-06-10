@@ -4,6 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Button } from "@mui/material";
 
 interface IKeys {
   id: string;
@@ -14,8 +15,9 @@ interface selectProps {
   handleChange: (params: any) => any;
   labelName: string;
   value: string;
-  options: Array<IKeys>,
-  isDisabled: boolean
+  options: Array<IKeys>;
+  isDisabled: boolean;
+  onCrossClick: (params: any) => any;
 }
 
 export default function CustomSelect({
@@ -23,25 +25,31 @@ export default function CustomSelect({
   labelName,
   value,
   options,
-  isDisabled
+  isDisabled,
+  onCrossClick
 }: selectProps) {
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120 , display:'flex', gap:'1rem'}}>
       <FormControl fullWidth>
         <InputLabel id="category">{labelName}</InputLabel>
         <Select
           labelId="category"
           id="select-"
-          value={value || ''}
+          value={value || ""}
           label="Category"
           disabled={isDisabled}
           onChange={handleChange}
         >
           {options.map((eachOption: IKeys) => {
-            return <MenuItem key={eachOption.id} value={eachOption.id}>{eachOption.name}</MenuItem>;
+            return (
+              <MenuItem key={eachOption.id} value={eachOption.id}>
+                {eachOption.name}
+              </MenuItem>
+            );
           })}
         </Select>
       </FormControl>
+      <Button variant="contained" onClick={onCrossClick}>X</Button> 
     </Box>
   );
 }

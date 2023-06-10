@@ -93,7 +93,7 @@ export const ProductComparision = () => {
             <Grid item xs={4}></Grid>
             <Grid item xs={4}>
                 <Box sx={{ marginBottom: "25px" }}>
-                    <CustomSelect labelName='Camparision' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} />
+                    <CustomSelect labelName='Camparision' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} onCrossClick={()=>{}}/>
                 </Box>
             </Grid>
         </Grid>

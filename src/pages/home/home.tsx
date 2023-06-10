@@ -1,9 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import CustomSelect from "../../shared/components/ui/CustomSelect";
 import { Box, Grid } from "@mui/material";
-import {
-  useProduct,
-} from "../../context/product-context/product-context";
+import { useProduct } from "../../context/product-context/product-context";
 import { useCategory } from "../../context/category-context/category-context";
 
 const Home = () => {
@@ -14,12 +12,22 @@ const Home = () => {
 
   const handleChange = (e: any) => {
     setSelectedCategory(e.target.value);
+    setSelectProduct("");
     navigate("comparison");
   };
 
   const handleProductChange = (e: any) => {
     setSelectProduct(e.target.value);
     navigate("product-details");
+  };
+
+  const categoryCloseClicked = () => {
+    setSelectedCategory("");
+    setSelectProduct("");
+  };
+
+  const productCrossClicked = () => {
+    setSelectProduct("");
   };
 
   const formattedData = (categories || []).map((eachCategory: any) => {
@@ -46,6 +54,7 @@ const Home = () => {
             options={formattedData}
             labelName="Category"
             isDisabled={false}
+            onCrossClick={categoryCloseClicked}
           />
         </Box>
         <Box sx={{ marginBottom: "16px" }}>
@@ -55,6 +64,7 @@ const Home = () => {
             isDisabled={formattedDataproduct.length === 0}
             options={formattedDataproduct}
             labelName="Products"
+            onCrossClick={productCrossClicked}
           />
         </Box>
       </Grid>

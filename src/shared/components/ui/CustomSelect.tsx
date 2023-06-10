@@ -38,7 +38,7 @@ export default function CustomSelect({
           onChange={handleChange}
         >
           {options.map((eachOption: IKeys) => {
-            return <MenuItem value={eachOption.id}>{eachOption.name}</MenuItem>;
+            return <MenuItem key={eachOption.id} value={eachOption.id}>{eachOption.name}</MenuItem>;
           })}
         </Select>
       </FormControl>

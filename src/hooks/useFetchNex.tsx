@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 
 export const useFetch = (url: string, options: any, deps :string[] = []) => {
-    const [response, setResponse] = useState(null);
+    const [response, setResponse] = useState<any>(null);
     const [error, setError] = useState(null);
     useEffect(() => {
       const fetchData = async () => {

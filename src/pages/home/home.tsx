@@ -1,63 +1,52 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import CustomSelect from "../../shared/components/ui/CustomSelect";
-import { Box, Grid } from "@mui/material";
-import { useProduct } from "../../context/product-context/product-context";
-import { useCategory } from "../../context/category-context/category-context";
+import { Outlet, useNavigate } from 'react-router-dom';
+import CustomSelect from '../../shared/components/ui/CustomSelect';
+import { Box, Grid } from '@mui/material';
+import { useProduct } from '../../context/product-context/product-context';
+import { useCategory } from '../../context/category-context/category-context';
 
 const Home = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const { categories, setSelectedCategory, selectedCategory } = useCategory();
-  const { products, setSelectProduct, selectProduct } = useProduct();
+  const { categories, selectedCategory, setSelectedCategory } = useCategory();
+  const { products, selectProduct, setSelectProduct } = useProduct();
 
   const handleChange = (e: any) => {
-    setSelectedCategory(e.target.value);
-    setSelectProduct("");
-    navigate("comparison");
+    setSelectedCategory && setSelectedCategory(e.target.value);
+    setSelectProduct && setSelectProduct('');
+    navigate('comparison');
   };
 
   const handleProductChange = (e: any) => {
-    setSelectProduct(e.target.value);
-    navigate("product-details");
+    setSelectProduct && setSelectProduct(e.target.value);
+    navigate('product-details');
   };
 
   const categoryCloseClicked = () => {
-    setSelectedCategory("");
-    setSelectProduct("");
+    setSelectedCategory && setSelectedCategory('');
+    setSelectProduct && setSelectProduct('');
   };
 
   const productCrossClicked = () => {
-    setSelectProduct("");
+    setSelectProduct && setSelectProduct('');
   };
 
-  const formattedData = (categories || []).map((eachCategory: any) => {
-    return {
-      id: eachCategory,
-      name: eachCategory,
-    };
-  });
-
-  const formattedDataproduct = (products || []).map((eachProduct: any) => {
-    return {
-      id: String(eachProduct.id),
-      name: eachProduct.title,
-    };
-  });
+  const formattedData = categories!.map((category) => ({id: category, name: category}));
+  const formattedDataproduct = products.map(({id, title}) => ({id: id.toString(), name: title}));
 
   return (
-    <Grid container spacing={2} sx={{ padding: "16px" }}>
+    <Grid container spacing={2} sx={{ padding: '16px' }}>
       <Grid item xs={12} sm={12} md={4}>
-        <Box sx={{ marginBottom: "16px" }}>
+        <Box sx={{ marginBottom: '16px'}}>
           <CustomSelect
             handleChange={handleChange}
             value={selectedCategory}
             options={formattedData}
-            labelName="Category"
+            labelName='Category'
             isDisabled={false}
             onCrossClick={categoryCloseClicked}
           />
         </Box>
-        <Box sx={{ marginBottom: "16px" }}>
+        <Box sx={{ marginBottom: '16px' }}>
           <CustomSelect
             handleChange={handleProductChange}
             value={selectProduct}

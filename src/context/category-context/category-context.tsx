@@ -1,25 +1,26 @@
 import { ReactNode, createContext, useState, useContext } from 'react';
 import { ICategoryContext } from "./category-context.interface";
 import { Category } from '../../shared/models/category.inyterface';
+import { useFetch } from '../../hooks/useFetchNex';
+import { categoriesUrl } from '../../shared/urls/url';
 
 const CategoryContext = createContext<ICategoryContext>({
     categories: [],
-    loading: false,
-    error: false
+    error: false,
+    selectedCategory:'',
+    setSelectedCategory: ()=>{}
+
 });
 
 export const CategoryProvider = ({ children }: {children: ReactNode}) => {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<boolean>(false);
+    const [selectedCategory, setSelectedCategory] = useState<any>('');
+    const {response:categories,error}=useFetch(categoriesUrl(),null,[])
 
     const values = {
-        categories,
-        loading,
         error,
-        setCategories,
-        setLoading,
-        setError
+        categories,
+        setSelectedCategory,
+        selectedCategory
     };
 
     return (

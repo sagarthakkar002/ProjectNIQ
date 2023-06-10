@@ -1,37 +1,24 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import CustomSelect from "../../shared/components/ui/CustomSelect";
 import { Box, Grid } from "@mui/material";
-import { useProduct } from "../../context/ProductContext";
-
-const url = "https://fakestoreapi.com";
+import {
+  useProduct,
+} from "../../context/product-context/product-context";
+import { useCategory } from "../../context/category-context/category-context";
 
 const Home = () => {
   let navigate = useNavigate();
-  const {
-    productList,
-    productID,
-    categories,
-    loading,
-    product,
-    setProductID,
-    setCategory,
-    setProductUrl,
-    category,
-    setProductDeatilUrl,
-  }: any = useProduct();
+
+  const { categories, setSelectedCategory, selectedCategory } = useCategory();
+  const { products, setSelectProduct, selectProduct } = useProduct();
 
   const handleChange = (e: any) => {
-    setCategory(e.target.value);
-    const urlLink = url + "/products/category/" + e.target.value;
-    console.log(urlLink);
-    setProductUrl(urlLink);
-    navigate("comparison")
+    setSelectedCategory(e.target.value);
+    navigate("comparison");
   };
 
   const handleProductChange = (e: any) => {
-    setProductID(e.target.value);
-    const urlLink = `https://fakestoreapi.com/products/${e.target.value}`;
-    setProductDeatilUrl(urlLink);
+    setSelectProduct(e.target.value);
     navigate("product-details");
   };
 
@@ -42,7 +29,7 @@ const Home = () => {
     };
   });
 
-  const formattedDataproduct = (productList || []).map((eachProduct: any) => {
+  const formattedDataproduct = (products || []).map((eachProduct: any) => {
     return {
       id: String(eachProduct.id),
       name: eachProduct.title,
@@ -50,12 +37,12 @@ const Home = () => {
   });
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={4} spacing={3}>
+    <Grid container spacing={2} sx={{ padding: "16px" }}>
+      <Grid item xs={12} sm={12} md={4}>
         <Box sx={{ marginBottom: "16px" }}>
           <CustomSelect
             handleChange={handleChange}
-            value={category}
+            value={selectedCategory}
             options={formattedData}
             labelName="Category"
             isDisabled={false}
@@ -64,14 +51,14 @@ const Home = () => {
         <Box sx={{ marginBottom: "16px" }}>
           <CustomSelect
             handleChange={handleProductChange}
-            value={productID}
+            value={selectProduct}
             isDisabled={formattedDataproduct.length === 0}
             options={formattedDataproduct}
             labelName="Products"
           />
         </Box>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={8}>
         <Outlet />
       </Grid>
     </Grid>

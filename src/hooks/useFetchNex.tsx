@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-export const useFetch = (url: string, options: any, deps = []) => {
+export const useFetch = (url: string, options: any, deps :string[] = []) => {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -13,7 +13,7 @@ export const useFetch = (url: string, options: any, deps = []) => {
           setError(error);
         }
       };
-      url && fetchData();
+      url && deps.every((eachValue)=>eachValue!=='') && fetchData();
     }, deps);
     return { response, error };
 };

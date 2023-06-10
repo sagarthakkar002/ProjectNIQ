@@ -1,14 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { ProductComparision } from './pages/comparision/components/product-camparision';
-import { ProductTable } from './pages/comparision/components/product-table';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import "./App.css";
+import Home from "./pages/home/home";
+import ProductDetails from "./pages/product-details/productDetails";
+import {ProductComparision} from "./pages/comparision/components/product-camparision";
 
 function App() {
   return (
+    
     <div className="App">
-      <ProductComparision />
-      <ProductTable />
+      <Router>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route path="product-details" element={<ProductDetails />} />
+          <Route path="comparison" element={<ProductComparision />} />
+        </Route>
+      </Routes> 
+      </Router>
+
     </div>
   );
 }

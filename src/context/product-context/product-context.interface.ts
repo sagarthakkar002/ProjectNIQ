@@ -6,7 +6,7 @@ export interface IProductContext {
     loading: boolean,
     error: boolean,
     setProducts?: Function,
-    setProduct?: Function,
+    setSelectProduct?: Function,
     setLoading?: Function,
     setError?: Function
 }

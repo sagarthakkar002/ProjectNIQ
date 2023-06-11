@@ -1,16 +1,15 @@
-.category{
+.category {
     text-transform: uppercase;
 }
 
-.sku{
+.sku {
     margin-bottom: 1rem;
 }
 
-.price{
+.price {
     font-size: 2rem;
 }
 
 .product-image{
-    width: 150px;
-    height: 150px;
+    width: 200px;
 }

@@ -5,13 +5,15 @@ import { BAR_CHART_OPTIONS } from '../../../shared/defaults-data/charts/bar-char
 import { Chart } from '../../../shared/components/charts/chart';
 import CustomSelect from '../../../shared/components/ui/CustomSelect';
 import { Box, Grid } from "@mui/material";
+import { useProduct } from '../../../context/product-context/product-context';
+import { useCategory } from '../../../context/category-context/category-context';
 
 const defaultOptions: HighCharts.Options = {
     title: {
-        text: 'Browser market shares. January, 2022'
+        text: 'Products Comparision'
     },
     subtitle: {
-        text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+        text: 'This graph includes comparision of products with price and ratings'
     },
     xAxis: {
         type: 'category'
@@ -26,76 +28,57 @@ const defaultOptions: HighCharts.Options = {
             borderWidth: 0,
             dataLabels: {
                 enabled: true,
-                format: '{point.y:.1f}%'
+                format: '{point.y}'
             }
         }
     },
 
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b><br/>'
     },
 
     series: [
         {
-            name: 'Browsers',
+            name: 'Products',
             colorByPoint: true,
-            type: 'column',
-            data: [
-                {
-                    name: 'Chrome',
-                    y: 63.06
-                },
-                {
-                    name: 'Safari',
-                    y: 19.84
-                },
-                {
-                    name: 'Firefox',
-                    y: 4.18
-                },
-                {
-                    name: 'Edge',
-                    y: 4.12
-                },
-                {
-                    name: 'Opera',
-                    y: 2.33
-                },
-                {
-                    name: 'Internet Explorer',
-                    y: 0.45
-                },
-                {
-                    name: 'Other',
-                    y: 1.582
-                }
-            ]
+            type: 'column'
         }
     ],
 }
 
 export const ProductComparision = () => {
-    const chartOptions = merge({}, BAR_CHART_OPTIONS, defaultOptions);
+    const [chartOptions, setChartOptions] = useState<HighCharts.Options | null>(null);
+    const {products} = useProduct();
+    const {selectedCategory} = useCategory();
+    const [selectComparisionOption, setSelectComparisionOption] = useState('price');
+    
+    useEffect(() => {
+        const data = (products || []).map(({title, price, rating}) => ({name: title, y: selectComparisionOption === 'price' ? price : rating}));
+        const options = merge({}, BAR_CHART_OPTIONS, defaultOptions, {series: [{data}]});
+        setChartOptions(options);
+    }, [selectComparisionOption, selectedCategory, products]);
+
     const comparisionOptions = [
         { id: 'price', name: 'Price' },
         { id: 'rating', name: 'Rating' }
     ];
 
-    const [selectComparisionOption, setSelectComparisionOption] = useState('price');
-
-    useEffect(() => {
-    }, [selectComparisionOption]);
-
     return <>
-        <Chart options={chartOptions} />
-        <Grid container spacing={2}>
-            <Grid item xs={3}></Grid>
-            <Grid item xs={6}>
-                <Box sx={{ marginBottom: "25px" }}>
-                    <CustomSelect labelName='Camparision' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} onCrossClick={()=>{}}/>
-                </Box>
-            </Grid>
-        </Grid>
+        {
+            chartOptions && (
+                <> 
+                    <Chart options={chartOptions} />
+                    <Grid container spacing={2}>
+                        <Grid item xs={3}></Grid>
+                        <Grid item xs={6}>
+                            <Box sx={{ marginBottom: "25px" }}>
+                                <CustomSelect labelName='Camparision' options={comparisionOptions} value={selectComparisionOption} handleChange={(e) => setSelectComparisionOption(e.target.value)} isDisabled={false} onCrossClick={()=>{}}/>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </>
+            )
+        }
     </>
 }

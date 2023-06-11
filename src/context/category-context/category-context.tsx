@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState, useContext } from 'react';
 import { ICategoryContext } from "./category-context.interface";
-import { useFetch } from '../../hooks/useFetchNex';
+import { useFetch } from '../../hooks/useFetch';
 import { categoriesUrl } from '../../shared/urls/url';
 import { Category } from '../../shared/models/category.inyterface';
 

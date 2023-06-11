@@ -10,7 +10,7 @@ const Home = () => {
   const { categories, selectedCategory, setSelectedCategory } = useCategory();
   const { products, selectProduct, setSelectProduct } = useProduct();
 
-  const handleChange = (e: any) => {
+  const handleCategoryChange = (e: any) => {
     setSelectedCategory && setSelectedCategory(e.target.value);
     setSelectProduct && setSelectProduct('');
     navigate('comparison');
@@ -24,10 +24,12 @@ const Home = () => {
   const categoryCloseClicked = () => {
     setSelectedCategory && setSelectedCategory('');
     setSelectProduct && setSelectProduct('');
+    navigate('comparison');
   };
 
   const productCrossClicked = () => {
     setSelectProduct && setSelectProduct('');
+    navigate('comparison');
   };
 
   const formattedData = categories!.map((category) => ({id: category, name: category}));
@@ -38,7 +40,7 @@ const Home = () => {
       <Grid item xs={12} sm={12} md={4}>
         <Box sx={{ marginBottom: '16px'}}>
           <CustomSelect
-            handleChange={handleChange}
+            handleChange={handleCategoryChange}
             value={selectedCategory}
             options={formattedData}
             labelName='Category'

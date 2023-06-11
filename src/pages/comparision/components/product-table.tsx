@@ -1,10 +1,12 @@
+import { useProduct } from "../../../context/product-context/product-context";
 import { TableUI } from "../../../shared/components/ui/table";
-import { ProductTableColumns, ProductTableRows } from "../../../shared/defaults-data/table/product-table"
+import { ProductTableColumns } from "../../../shared/defaults-data/table/product-table"
 
 export const ProductTable = () => {
     const columns = ProductTableColumns;
-    const rows = ProductTableRows;
-    return (
-        <TableUI columns={columns} rows={rows} />
-    )
+    const {products} = useProduct();
+    return <>
+        <TableUI columns={columns} rows={products} />
+    </>
+
 }

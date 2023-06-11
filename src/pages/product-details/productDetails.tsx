@@ -12,19 +12,20 @@ const ProductDetails = () => {
     product && (
       <Box>
         <Typography variant='h4' marginBottom={2} fontWeight={'bold'}>
-          {product?.title}
+          Title: {product?.title}
         </Typography>
         <Box sx={contentContainerStyle}>
           <Box sx={productDetailsStyle}>
-            <span className='category'>{product.category}</span>
-            <div className='sku'>SKU: {product.id}</div>
-            <span className='price'>$ {product.price}</span>
+            <span className='category'>{product.category}</span> :
+            <span className='price'> ${product.price}</span>
           </Box>
           <Box sx={imgContainerStyle}>
             <img src={product.image} className='product-image'/>
           </Box>
         </Box>
-        <Box>{product?.description}</Box>
+        <Box>
+          Description: {product?.description}
+        </Box>
       </Box>
     )
   );

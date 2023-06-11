@@ -17,7 +17,8 @@ interface selectProps {
   value: string;
   options: Array<IKeys>;
   isDisabled: boolean;
-  onCrossClick: (params: any) => any;
+  showCross?: boolean;
+  onCrossClick?: (params: any) => any;
 }
 
 export default function CustomSelect({
@@ -26,7 +27,8 @@ export default function CustomSelect({
   value,
   options,
   isDisabled,
-  onCrossClick
+  showCross = true,
+  onCrossClick 
 }: selectProps) {
   return (
     <Box sx={{ minWidth: 120 , display:'flex', gap:'1rem'}}>
@@ -49,7 +51,7 @@ export default function CustomSelect({
           })}
         </Select>
       </FormControl>
-      <Button variant="contained" onClick={onCrossClick}>X</Button> 
+      {showCross && <Button variant="contained" onClick={onCrossClick}>X</Button> }
     </Box>
   );
 }
